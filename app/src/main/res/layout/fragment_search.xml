@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F8FAFC"
+    android:orientation="vertical">
+
+    <!-- Search Header Row -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="12dp">
+
+        <EditText
+            android:id="@+id/et_keyword"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_edittext_bordered"
+            android:hint="Tìm kiếm dự án, địa chỉ..."
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:paddingHorizontal="16dp"
+            android:textColor="@color/brand_blue_900"
+            android:textColorHint="@color/gray_500" />
+
+        <Button
+            android:id="@+id/btn_filter_toggle"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginStart="8dp"
+            android:backgroundTint="@color/brand_blue_600"
+            android:text="Lọc"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:cornerRadius="12dp" />
+    </LinearLayout>
+
+    <!-- Expandable Advanced Filters Drawer -->
+    <LinearLayout
+        android:id="@+id/layout_advanced_filters"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:elevation="2dp"
+        android:orientation="vertical"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="12dp"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <Spinner
+                android:id="@+id/spinner_city"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="4dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_spinner_bordered" />
+
+            <Spinner
+                android:id="@+id/spinner_district"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="4dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_spinner_bordered" />
+        </LinearLayout>
+
+        <!-- Property Type & Sort Option -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:orientation="horizontal">
+
+            <Spinner
+                android:id="@+id/spinner_type"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="4dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_spinner_bordered" />
+
+            <Spinner
+                android:id="@+id/spinner_sort"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="4dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_spinner_bordered" />
+        </LinearLayout>
+
+        <!-- Price Range Filters -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/et_min_price"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="4dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_edittext_bordered"
+                android:hint="Giá tối thiểu (USD)"
+                android:inputType="number"
+                android:paddingHorizontal="10dp"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/et_max_price"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="4dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_edittext_bordered"
+                android:hint="Giá tối đa (USD)"
+                android:inputType="number"
+                android:paddingHorizontal="10dp"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <!-- Specs Range Filters -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/et_bedrooms"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="4dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_edittext_bordered"
+                android:hint="Số phòng ngủ"
+                android:inputType="number"
+                android:paddingHorizontal="10dp"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/et_bathrooms"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="4dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_edittext_bordered"
+                android:hint="Số phòng tắm"
+                android:inputType="number"
+                android:paddingHorizontal="10dp"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <!-- Search Submit inside drawer -->
+        <Button
+            android:id="@+id/btn_apply_filters"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:backgroundTint="@color/brand_blue_600"
+            android:text="Áp dụng lọc bộ lọc nâng cao"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:cornerRadius="8dp" />
+
+    </LinearLayout>
+
+    <!-- Listing Types Toggle (Quick Filters) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginVertical="6dp"
+        android:orientation="horizontal">
+
+        <!-- Segmented Control background -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/brand_blue_50"
+            android:orientation="horizontal"
+            android:padding="2dp">
+
+            <Button
+                android:id="@+id/btn_search_buy"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:backgroundTint="@color/brand_blue_600"
+                android:text="Bán"
+                android:textColor="@color/white"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                app:cornerRadius="6dp"
+                android:padding="0dp"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:minHeight="0dp"
+                android:minWidth="60dp" />
+
+            <Button
+                android:id="@+id/btn_search_rent"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:text="Thuê"
+                android:textColor="@color/brand_blue_600"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                app:cornerRadius="6dp"
+                android:padding="0dp"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:minHeight="0dp"
+                android:minWidth="60dp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_search_results_count"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="end"
+            android:text="0 kết quả"
+            android:textColor="@color/gray_700"
+            android:textSize="13sp" />
+    </LinearLayout>
+
+    <!-- Results Area -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_search_results"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:paddingBottom="16dp"
+            android:paddingHorizontal="16dp" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tv_empty_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Không tìm thấy kết quả phù hợp."
+            android:textColor="@color/gray_500"
+            android:visibility="gone" />
+    </FrameLayout>
+
+</LinearLayout>

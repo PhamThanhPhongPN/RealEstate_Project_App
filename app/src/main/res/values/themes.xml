@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.RealEstate" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/brand_blue_600</item>
+        <item name="colorPrimaryVariant">@color/brand_blue_900</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/secondary_pink</item>
+        <item name="colorSecondaryVariant">@color/secondary_pink</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="android:statusBarColor">@color/brand_blue_900</item>
+    </style>
+</resources>

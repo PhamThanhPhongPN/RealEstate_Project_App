@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F8FAFC"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/white"
+        android:elevation="2dp">
+
+        <ImageButton
+            android:id="@+id/btn_edit_back"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:src="@android:drawable/ic_menu_revert"
+            app:tint="@color/brand_blue_900" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Chỉnh Sửa Tin Đăng"
+            android:textColor="@color/brand_blue_900"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </androidx.appcompat.widget.Toolbar>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:id="@+id/scroll_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <!-- Title Section -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Thông tin chung"
+                    android:textColor="@color/brand_blue_600"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/et_edit_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_edittext_bordered"
+                    android:hint="Tiêu đề tin đăng (bắt buộc)"
+                    android:inputType="text"
+                    android:paddingHorizontal="12dp"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/et_edit_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_edittext_bordered"
+                    android:gravity="top|start"
+                    android:hint="Mô tả chi tiết tin đăng"
+                    android:inputType="textMultiLine"
+                    android:minLines="4"
+                    android:padding="12dp"
+                    android:textSize="14sp" />
+
+                <!-- Transaction Choice & Type choice -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Hình thức &amp; Loại bất động sản"
+                    android:textColor="@color/brand_blue_900"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <RadioGroup
+                    android:id="@+id/rg_edit_listing_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/rb_edit_sale"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Bán" />
+
+                    <RadioButton
+                        android:id="@+id/rb_edit_rent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:text="Cho thuê" />
+                </RadioGroup>
+
+                <Spinner
+                    android:id="@+id/spinner_edit_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_spinner_bordered" />
+
+                <!-- Price & Currency toggling -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Giá &amp; Diện tích"
+                    android:textColor="@color/brand_blue_900"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/et_edit_price"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_marginEnd="6dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_edittext_bordered"
+                        android:hint="Giá"
+                        android:inputType="numberDecimal"
+                        android:paddingHorizontal="12dp"
+                        android:textSize="14sp" />
+
+                    <Spinner
+                        android:id="@+id/spinner_edit_currency"
+                        android:layout_width="100dp"
+                        android:layout_height="50dp"
+                        android:background="@drawable/bg_spinner_bordered" />
+                </LinearLayout>
+
+                <!-- Price saved hint -->
+                <TextView
+                    android:id="@+id/tv_edit_price_hint"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textColor="@color/brand_blue_600"
+                    android:textSize="11sp"
+                    android:visibility="gone" />
+
+                <EditText
+                    android:id="@+id/et_edit_area"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_edittext_bordered"
+                    android:hint="Diện tích (m²)"
+                    android:inputType="numberDecimal"
+                    android:paddingHorizontal="12dp"
+                    android:textSize="14sp" />
+
+                <!-- Beds & Baths -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/et_edit_bedrooms"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_marginEnd="6dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_edittext_bordered"
+                        android:hint="Số phòng ngủ"
+                        android:inputType="number"
+                        android:paddingHorizontal="12dp"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:id="@+id/et_edit_bathrooms"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="6dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_edittext_bordered"
+                        android:hint="Số phòng tắm"
+                        android:inputType="number"
+                        android:paddingHorizontal="12dp"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <!-- Direction & Video URL -->
+                <Spinner
+                    android:id="@+id/spinner_edit_direction"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_spinner_bordered" />
+
+                <EditText
+                    android:id="@+id/et_edit_video_url"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_edittext_bordered"
+                    android:hint="URL Video Tour (Youtube, v.v.)"
+                    android:inputType="textUri"
+                    android:paddingHorizontal="12dp"
+                    android:textSize="14sp" />
+
+                <!-- Location Section -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Vị trí bất động sản"
+                    android:textColor="@color/brand_blue_600"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <Spinner
+                        android:id="@+id/spinner_edit_city"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_marginEnd="6dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_spinner_bordered" />
+
+                    <Spinner
+                        android:id="@+id/spinner_edit_district"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="6dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_spinner_bordered" />
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/et_edit_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_edittext_bordered"
+                    android:hint="Địa chỉ chi tiết (Số nhà, tên đường...)"
+                    android:inputType="text"
+                    android:paddingHorizontal="12dp"
+                    android:textSize="14sp" />
+
+                <!-- Media Section (Photo upload selector) -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Hình ảnh bất động sản"
+                    android:textColor="@color/brand_blue_600"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Chọn thêm ảnh tải lên (JPG, PNG, WEBP)"
+                    android:textColor="@color/gray_500"
+                    android:textSize="12sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btn_edit_select_images"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Chọn thêm ảnh"
+                        android:textStyle="bold"
+                        app:cornerRadius="8dp" />
+
+                    <TextView
+                        android:id="@+id/tv_edit_images_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:text="Đã chọn: 0 ảnh mới"
+                        android:textColor="@color/gray_700"
+                        android:textSize="13sp" />
+                </LinearLayout>
+
+                <!-- Horizontal previews list -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_edit_image_previews"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal" />
+
+                <!-- Amenities/Features Selector -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Tiện ích đi kèm"
+                    android:textColor="@color/brand_blue_600"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_edit_features"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:nestedScrollingEnabled="false" />
+
+                <TextView
+                    android:id="@+id/tv_edit_error"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:textColor="#EF4444"
+                    android:textSize="13sp"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/btn_edit_submit"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="30dp"
+                    android:backgroundTint="@color/brand_blue_600"
+                    android:text="Lưu thay đổi"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    app:cornerRadius="12dp" />
+
+            </LinearLayout>
+        </ScrollView>
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+    </FrameLayout>
+
+</LinearLayout>

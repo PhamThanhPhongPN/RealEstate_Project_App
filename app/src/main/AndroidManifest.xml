@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:name=".RealEstateApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:windowSoftInputMode="adjustResize"
+        android:usesCleartextTraffic="true"
+        android:theme="@style/Theme.RealEstate">
+        <activity
+            android:name=".ui.auth.LoginActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".MainActivity" android:exported="false" />
+
+        <!-- Authentication Activities -->
+        <activity android:name=".ui.auth.RegisterActivity" android:exported="false" />
+        <activity android:name=".ui.auth.VerifyOtpActivity" android:exported="false" />
+        <activity android:name=".ui.auth.ForgotPasswordActivity" android:exported="false" />
+        <activity android:name=".ui.auth.ResetPasswordActivity" android:exported="false" />
+
+        <!-- Property Catalog & Details -->
+        <activity android:name=".ui.properties.PropertyDetailActivity" android:exported="false" />
+
+        <!-- Real-time Chat -->
+        <activity android:name=".ui.chat.ChatActivity" android:exported="false" />
+
+        <!-- Property Management Dashboard -->
+        <activity android:name=".ui.dashboard.CreatePropertyActivity" android:exported="false" />
+        <activity android:name=".ui.dashboard.EditPropertyActivity" android:exported="false" />
+
+        <!-- Subscription / Pricing -->
+        <activity android:name=".ui.subscription.PricingActivity" android:exported="false" />
+
+        <!-- Added Features -->
+        <activity android:name=".ui.main.NotificationsActivity" android:exported="false" />
+        <activity android:name=".ui.dashboard.ActivityHistoryActivity" android:exported="false" />
+        <activity android:name=".ui.dashboard.GuidelinesActivity" android:exported="false" />
+    </application>
+
+</manifest>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="brand_blue_900">#0F172A</color>
+    <color name="brand_blue_600">#2563EB</color>
+    <color name="brand_blue_50">#EFF6FF</color>
+    <color name="secondary_pink">#DB2777</color>
+    <color name="accent_green">#10B981</color>
+    
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="gray_100">#F1F5F9</color>
+    <color name="gray_300">#CBD5E1</color>
+    <color name="gray_500">#64748B</color>
+    <color name="gray_700">#334155</color>
+    
+    <color name="gold">#FFD700</color>
+    <color name="silver">#C0C0C0</color>
+</resources>

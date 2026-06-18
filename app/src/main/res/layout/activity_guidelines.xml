@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F8FAFC"
+    android:orientation="vertical">
+
+    <!-- Custom Toolbar -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@color/white"
+        android:elevation="2dp"
+        android:paddingHorizontal="12dp">
+
+        <ImageButton
+            android:id="@+id/btn_guidelines_back"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@android:drawable/ic_menu_revert"
+            app:tint="@color/brand_blue_900" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="16dp"
+            android:layout_toEndOf="@id/btn_guidelines_back"
+            android:text="Quy định đăng tin"
+            android:textColor="@color/brand_blue_900"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="40dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="QUY ĐỊNH ĐĂNG TIN LUXESTATES"
+                android:textColor="@color/brand_blue_900"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Chào mừng bạn đến với LuxEstates. Để đảm bảo chất lượng tin đăng và trải nghiệm tốt nhất cho người dùng, tất cả các tin đăng trên hệ thống cần tuân thủ nghiêm ngặt các quy định sau đây."
+                android:textColor="@color/gray_700"
+                android:textSize="14sp"
+                android:lineSpacingExtra="4dp" />
+
+            <!-- Rule 1 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="1. Thông tin bất động sản chính xác"
+                android:textColor="@color/brand_blue_600"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="• Tiêu đề tin đăng phải rõ ràng, phản ánh đúng loại hình bất động sản và khu vực.\n• Mô tả chi tiết diện tích, số phòng ngủ, phòng tắm, hướng nhà và địa chỉ chính xác.\n• Không sử dụng từ ngữ giật gân, lừa đảo hoặc gây nhầm lẫn cho người mua."
+                android:textColor="@color/gray_700"
+                android:textSize="14sp"
+                android:lineSpacingExtra="4dp" />
+
+            <!-- Rule 2 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="2. Quy định về giá cả &amp; tiền tệ"
+                android:textColor="@color/brand_blue_600"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="• Giá bán/thuê phải là giá thực tế và hợp lý so với thị trường.\n• Điền đúng đơn vị tiền tệ (USD hoặc VND). Hệ thống sẽ tự động quy đổi giá trị tương đương giữa các loại tiền tệ cho người mua."
+                android:textColor="@color/gray_700"
+                android:textSize="14sp"
+                android:lineSpacingExtra="4dp" />
+
+            <!-- Rule 3 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="3. Hình ảnh &amp; Video thực tế"
+                android:textColor="@color/brand_blue_600"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="• Đăng tải tối thiểu 1 và tối đa 10 hình ảnh có chất lượng rõ nét.\n• Hình ảnh phải là ảnh thực tế của bất động sản, không chứa logo của các sàn giao dịch khác, không chèn chữ che khuất chi tiết.\n• Video tour nếu có phải thuộc nền tảng YouTube và liên quan trực tiếp đến tin đăng."
+                android:textColor="@color/gray_700"
+                android:textSize="14sp"
+                android:lineSpacingExtra="4dp" />
+
+            <!-- Rule 4 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="4. Quy trình phê duyệt &amp; VIP Boost"
+                android:textColor="@color/brand_blue_600"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="• Mọi tin đăng mới hoặc tin đăng có chỉnh sửa nội dung sẽ chuyển sang trạng thái chờ duyệt (Pending) và ẩn khỏi kết quả tìm kiếm cho đến khi Admin phê duyệt.\n• Chỉ các tin đăng đã được duyệt mới có quyền nâng cấp các gói VIP Silver/Gold để nhận ưu tiên hiển thị hàng đầu hệ thống."
+                android:textColor="@color/gray_700"
+                android:textSize="14sp"
+                android:lineSpacingExtra="4dp" />
+
+            <!-- Warning Footer -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:background="@color/brand_blue_50"
+                android:padding="16dp"
+                android:text="⚠️ Lưu ý: Ban quản trị LuxEstates có quyền từ chối phê duyệt, tạm ẩn hoặc xóa vĩnh viễn các tin đăng vi phạm quy định mà không cần thông báo trước."
+                android:textColor="@color/brand_blue_900"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

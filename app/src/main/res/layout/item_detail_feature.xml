@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingVertical="8dp"
+    android:paddingHorizontal="16dp"
+    android:gravity="center_vertical">
+
+    <ImageView
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:src="@android:drawable/checkbox_on_background"
+        android:tint="@color/brand_blue_600"
+        android:layout_marginEnd="8dp"
+        android:contentDescription="@string/app_name" />
+
+    <TextView
+        android:id="@+id/tvFeatureLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:textColor="@color/brand_blue_900"
+        android:fontFamily="sans-serif-medium" />
+</LinearLayout>
