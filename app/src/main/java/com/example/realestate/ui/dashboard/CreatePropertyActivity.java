@@ -1,5 +1,6 @@
 package com.example.realestate.ui.dashboard;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
+import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,6 +28,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.*;
+import java.util.Locale;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -46,6 +49,25 @@ public class CreatePropertyActivity extends AppCompatActivity {
     private FeatureCheckboxAdapter featuresAdapter;
     private ImagePreviewsAdapter imagesAdapter;
     private final List<Uri> selectedImageUris = new ArrayList<>();
+
+    // ── Map Pinning state ────────────────────────────────────────────────────
+    private double pickedLat = Double.NaN;
+    private double pickedLng = Double.NaN;
+
+    private final ActivityResultLauncher<Intent> mapPickerLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+                    pickedLat = result.getData().getDoubleExtra(MapPickerActivity.EXTRA_PICKED_LAT, Double.NaN);
+                    pickedLng = result.getData().getDoubleExtra(MapPickerActivity.EXTRA_PICKED_LNG, Double.NaN);
+                    if (!Double.isNaN(pickedLat) && !Double.isNaN(pickedLng)) {
+                        String coordText = String.format(Locale.US, "📍 Lat: %.6f, Lng: %.6f", pickedLat, pickedLng);
+                        binding.tvCreateLocationCoords.setText(coordText);
+                        binding.tvCreateLocationCoords.setTextColor(getColor(R.color.brand_blue_600));
+                    }
+                }
+            }
+    );
 
     private final ActivityResultLauncher<String> imagePickerLauncher = registerForActivityResult(
             new ActivityResultContracts.GetMultipleContents(),
@@ -95,6 +117,16 @@ public class CreatePropertyActivity extends AppCompatActivity {
         binding.btnCreateBack.setOnClickListener(v -> finish());
         binding.btnSelectImages.setOnClickListener(v -> imagePickerLauncher.launch("image/*"));
         binding.btnCreateSubmit.setOnClickListener(v -> submitProperty());
+
+        // Map picker button
+        binding.btnCreatePickLocation.setOnClickListener(v -> {
+            Intent intent = new Intent(CreatePropertyActivity.this, MapPickerActivity.class);
+            if (!Double.isNaN(pickedLat) && !Double.isNaN(pickedLng)) {
+                intent.putExtra(MapPickerActivity.EXTRA_INITIAL_LAT, pickedLat);
+                intent.putExtra(MapPickerActivity.EXTRA_INITIAL_LNG, pickedLng);
+            }
+            mapPickerLauncher.launch(intent);
+        });
 
         // City selection cascading trigger
         binding.spinnerCreateCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -286,7 +318,13 @@ public class CreatePropertyActivity extends AppCompatActivity {
         
         body.put("direction", direction);
         body.put("address", address);
-        
+
+        // Include pinned coordinates if the user picked a location on the map
+        if (!Double.isNaN(pickedLat) && !Double.isNaN(pickedLng)) {
+            body.put("latitude", pickedLat);
+            body.put("longitude", pickedLng);
+        }
+
         String video = binding.etCreateVideoUrl.getText().toString().trim();
         if (!TextUtils.isEmpty(video)) {
             body.put("video_url", video);

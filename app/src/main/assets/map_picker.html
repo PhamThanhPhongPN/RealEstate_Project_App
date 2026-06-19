@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Chọn vị trí</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: sans-serif; background: #f0f4f8; }
+
+        #map {
+            position: absolute;
+            top: 56px;
+            left: 0; right: 0; bottom: 0;
+        }
+
+        #instruction-bar {
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 56px;
+            background: #1e40af;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+        }
+
+        #instruction-bar p {
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+        }
+
+        #coord-badge {
+            position: absolute;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.96);
+            border: 1.5px solid #2563eb;
+            border-radius: 24px;
+            padding: 8px 20px;
+            z-index: 1000;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+            white-space: nowrap;
+            display: none;
+            font-size: 13px;
+            color: #1e3a8a;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div id="instruction-bar">
+        <p>📍 Nhấn vào bản đồ để ghim vị trí bất động sản</p>
+    </div>
+
+    <div id="map"></div>
+
+    <div id="coord-badge"></div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        // Default center: Ho Chi Minh City
+        var defaultLat = 10.8231;
+        var defaultLng = 106.6297;
+        var defaultZoom = 13;
+
+        var map = L.map('map', { zoomControl: true }).setView([defaultLat, defaultLng], defaultZoom);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+            maxZoom: 19
+        }).addTo(map);
+
+        var marker = null;
+        var coordBadge = document.getElementById('coord-badge');
+
+        function formatCoord(lat, lng) {
+            return lat.toFixed(6) + ', ' + lng.toFixed(6);
+        }
+
+        function placeMarker(lat, lng) {
+            if (marker) {
+                marker.setLatLng([lat, lng]);
+            } else {
+                marker = L.marker([lat, lng], {
+                    draggable: true
+                }).addTo(map);
+
+                marker.on('dragend', function(e) {
+                    var pos = marker.getLatLng();
+                    updateCoord(pos.lat, pos.lng);
+                });
+            }
+
+            updateCoord(lat, lng);
+        }
+
+        function updateCoord(lat, lng) {
+            coordBadge.style.display = 'block';
+            coordBadge.textContent = '📍 ' + formatCoord(lat, lng);
+
+            // Notify Android via JS interface
+            if (window.Android && typeof window.Android.onLocationPicked === 'function') {
+                window.Android.onLocationPicked(lat, lng);
+            }
+        }
+
+        map.on('click', function(e) {
+            placeMarker(e.latlng.lat, e.latlng.lng);
+        });
+
+        // Called by the Android Activity after page load to pre-populate existing coords
+        window.setInitialLocation = function(lat, lng) {
+            map.setView([lat, lng], 16);
+            placeMarker(lat, lng);
+        };
+    </script>
+</body>
+</html>

@@ -1,5 +1,6 @@
 package com.example.realestate.ui.properties;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -60,9 +61,18 @@ public class PropertyDetailActivity extends AppCompatActivity {
         }
 
         setupSimilarRecycler();
+        setupMapWebView();
         setupListeners();
         loadPropertyDetails();
         syncFavoriteState();
+    }
+
+    @SuppressLint("SetJavaScriptEnabled")
+    private void setupMapWebView() {
+        android.webkit.WebSettings settings = binding.webViewMap.getSettings();
+        settings.setJavaScriptEnabled(true);
+        settings.setDomStorageEnabled(true);
+        // URL is loaded only in loadMapLocation() when coordinates are confirmed present
     }
 
     private void setupSimilarRecycler() {
@@ -193,6 +203,36 @@ public class PropertyDetailActivity extends AppCompatActivity {
 
         // Calculate mortgage principal initial
         calculateMortgage();
+
+        // 4. Map – show only if coordinates are available
+        loadMapLocation();
+    }
+
+    private void loadMapLocation() {
+        if (property == null) return;
+        Double lat = property.getLatitude();
+        Double lng = property.getLongitude();
+        if (lat == null || lng == null) return;
+
+        // Reveal the map section
+        binding.layoutMapSection.setVisibility(View.VISIBLE);
+
+        // Escape the title safely for inline JS string
+        String rawTitle = property.getTitle() != null ? property.getTitle() : "B\u1ea5t \u0111\u1ed9ng s\u1ea3n";
+        String safeTitle = rawTitle.replace("\\", "\\\\").replace("'", "\\'");
+
+        // Inject coordinates after the page has loaded
+        binding.webViewMap.setWebViewClient(new android.webkit.WebViewClient() {
+            @Override
+            public void onPageFinished(android.webkit.WebView view, String url) {
+                super.onPageFinished(view, url);
+                if (binding == null) return; // Activity already destroyed
+                String js = "javascript:window.showLocation(" + lat + "," + lng + ",'" + safeTitle + "');";
+                binding.webViewMap.loadUrl(js);
+            }
+        });
+        // Reload so the WebViewClient's onPageFinished fires with the new client attached
+        binding.webViewMap.loadUrl("file:///android_asset/map_view.html");
     }
 
     private void updatePrices() {
@@ -425,6 +465,10 @@ public class PropertyDetailActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        // Destroy WebView to release resources and stop background processes
+        if (binding != null) {
+            binding.webViewMap.destroy();
+        }
         binding = null;
     }
 

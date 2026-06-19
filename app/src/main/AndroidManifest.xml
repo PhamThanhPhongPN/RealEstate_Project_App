@@ -39,6 +39,7 @@
         <!-- Property Management Dashboard -->
         <activity android:name=".ui.dashboard.CreatePropertyActivity" android:exported="false" />
         <activity android:name=".ui.dashboard.EditPropertyActivity" android:exported="false" />
+        <activity android:name=".ui.dashboard.MapPickerActivity" android:exported="false" />
 
         <!-- Subscription / Pricing -->
         <activity android:name=".ui.subscription.PricingActivity" android:exported="false" />

@@ -1,5 +1,6 @@
 package com.example.realestate.ui.dashboard;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
+import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,6 +28,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.*;
+import java.util.Locale;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -47,6 +50,25 @@ public class EditPropertyActivity extends AppCompatActivity {
     private FeatureCheckboxAdapter featuresAdapter;
     private ImagePreviewsAdapter imagesAdapter;
     private final List<Uri> selectedImageUris = new ArrayList<>();
+
+    // ── Map Pinning state ────────────────────────────────────────────────────
+    private double pickedLat = Double.NaN;
+    private double pickedLng = Double.NaN;
+
+    private final ActivityResultLauncher<Intent> mapPickerLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+                    pickedLat = result.getData().getDoubleExtra(MapPickerActivity.EXTRA_PICKED_LAT, Double.NaN);
+                    pickedLng = result.getData().getDoubleExtra(MapPickerActivity.EXTRA_PICKED_LNG, Double.NaN);
+                    if (!Double.isNaN(pickedLat) && !Double.isNaN(pickedLng)) {
+                        String coordText = String.format(Locale.US, "📍 Lat: %.6f, Lng: %.6f", pickedLat, pickedLng);
+                        binding.tvEditLocationCoords.setText(coordText);
+                        binding.tvEditLocationCoords.setTextColor(getColor(R.color.brand_blue_600));
+                    }
+                }
+            }
+    );
 
     private final ActivityResultLauncher<String> imagePickerLauncher = registerForActivityResult(
             new ActivityResultContracts.GetMultipleContents(),
@@ -97,6 +119,16 @@ public class EditPropertyActivity extends AppCompatActivity {
         binding.btnEditBack.setOnClickListener(v -> finish());
         binding.btnEditSelectImages.setOnClickListener(v -> imagePickerLauncher.launch("image/*"));
         binding.btnEditSubmit.setOnClickListener(v -> submitEdits());
+
+        // Map picker button
+        binding.btnEditPickLocation.setOnClickListener(v -> {
+            Intent intent = new Intent(EditPropertyActivity.this, MapPickerActivity.class);
+            if (!Double.isNaN(pickedLat) && !Double.isNaN(pickedLng)) {
+                intent.putExtra(MapPickerActivity.EXTRA_INITIAL_LAT, pickedLat);
+                intent.putExtra(MapPickerActivity.EXTRA_INITIAL_LNG, pickedLng);
+            }
+            mapPickerLauncher.launch(intent);
+        });
 
         binding.spinnerEditCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -254,6 +286,15 @@ public class EditPropertyActivity extends AppCompatActivity {
                         binding.rbEditSale.setChecked(true);
                     }
 
+                    // Pre-pin existing coordinates on the map button label
+                    if (prop.getLatitude() != null && prop.getLongitude() != null) {
+                        pickedLat = prop.getLatitude();
+                        pickedLng = prop.getLongitude();
+                        String coordText = String.format(Locale.US, "📍 Lat: %.6f, Lng: %.6f", pickedLat, pickedLng);
+                        binding.tvEditLocationCoords.setText(coordText);
+                        binding.tvEditLocationCoords.setTextColor(getColor(R.color.brand_blue_600));
+                    }
+
                     // Pre-select category type spinner
                     for (int i = 0; i < categoriesList.size(); i++) {
                         if (categoriesList.get(i).getTypeId() == prop.getTypeId()) {
@@ -348,6 +389,12 @@ public class EditPropertyActivity extends AppCompatActivity {
         
         if (districtId != null) {
             body.put("district_id", districtId);
+        }
+
+        // Include pinned coordinates if the user picked (or kept) a location
+        if (!Double.isNaN(pickedLat) && !Double.isNaN(pickedLng)) {
+            body.put("latitude", pickedLat);
+            body.put("longitude", pickedLng);
         }
 
         String video = binding.etEditVideoUrl.getText().toString().trim();

@@ -268,6 +268,34 @@
                     android:paddingHorizontal="12dp"
                     android:textSize="14sp" />
 
+                <!-- ── Map Pin Block (new) ── -->
+                <Button
+                    android:id="@+id/btn_edit_pick_location"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="10dp"
+                    android:drawableStart="@android:drawable/ic_dialog_map"
+                    android:drawablePadding="8dp"
+                    android:text="Ghim vị trí trên bản đồ"
+                    android:textStyle="bold"
+                    app:cornerRadius="8dp" />
+
+                <TextView
+                    android:id="@+id/tv_edit_location_coords"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/bg_edittext_bordered"
+                    android:padding="10dp"
+                    android:text="Chưa chọn vị trí trên bản đồ"
+                    android:textColor="@color/gray_500"
+                    android:textSize="12sp"
+                    android:visibility="visible" />
+                <!-- ── End Map Pin Block ── -->
+
+
+
                 <!-- Media Section (Photo upload selector) -->
                 <TextView
                     android:layout_width="wrap_content"
